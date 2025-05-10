@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Collected Mood Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .empty-message {
+            padding: 20px;
+            background-color: #f0f7ff;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .nav-bar {
+            display: flex;
+            background-color: white;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        .nav-tab {
+            padding: 15px 25px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+        .nav-tab:hover {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <a href="/" class="nav-tab">Home</a>
+        <a href="/data" class="nav-tab">Data Collected</a>
+        <a href="/history" class="nav-tab">Rules History</a>
+        <a href="/rules" class="nav-tab">Current Rules</a>
+    </div>
+
+    <div class="container">
+        <h1>Collected Mood Data</h1>
+
+        {% if entries|length > 0 %}
+            <p>This page shows all the data points collected from user feedback:</p>
+
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Weather</th>
+                    <th>Temperature</th>
+                    <th>Mood</th>
+                </tr>
+                {% for entry in entries %}
+                <tr>
+                    <td>{{ entry.timestamp if entry.timestamp else "N/A" }}</td>
+                    <td>{{ entry.weather }}</td>
+                    <td>{{ entry.temperature }}°F</td>
+                    <td>{{ entry.mood }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <div class="empty-message">
+                <p>No mood data has been collected yet. Use the app and provide feedback to start collecting data!</p>
+            </div>
+        {% endif %}
+
+        <!-- Removed the old navigation links -->
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+{
+    "Sunny": {
+        "below": {
+            "temp": 65,
+            "mood": "cheerful"
+        },
+        "above": {
+            "temp": 65,
+            "mood": "happy"
+        }
+    },
+    "Rainy": {
+        "below": {
+            "temp": 78,
+            "mood": "gloomy"
+        },
+        "above": {
+            "temp": 78,
+            "mood": "calm"
+        }
+    },
+    "Overcast": {
+        "below": {
+            "temp": 55,
+            "mood": "melancholy"
+        },
+        "above": {
+            "temp": 55,
+            "mood": "lively"
+        }
+    }
+}

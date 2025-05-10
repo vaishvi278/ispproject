@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rule Change History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+        }
+        .nav-bar {
+            display: flex;
+            background-color: white;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        .nav-tab {
+            padding: 15px 25px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+        .nav-tab:hover {
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .history-item {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border-left: 5px solid #0077cc;
+        }
+        .timestamp {
+            font-weight: bold;
+            color: #0077cc;
+            margin-bottom: 10px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 10px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            font-size: 14px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .empty-message {
+            padding: 20px;
+            background-color: #f0f7ff;
+            border-radius: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <a href="/" class="nav-tab">Home</a>
+        <a href="/data" class="nav-tab">Data Collected</a>
+        <a href="/history" class="nav-tab">Rules History</a>
+        <a href="/rules" class="nav-tab">Current Rules</a>
+    </div>
+
+    <div class="container">
+        <h1>Rule Change History</h1>
+
+        {% if history|length > 0 %}
+            <p>This page shows how the prediction rules have evolved over time as more data is collected.</p>
+
+            {% for item in history|reverse %}
+                <div class="history-item">
+                    <div class="timestamp">{{ item.timestamp }}</div>
+                    <table>
+                        <tr>
+                            <th>Weather</th>
+                            <th>Temperature Threshold</th>
+                            <th>Below Threshold Mood</th>
+                            <th>Above Threshold Mood</th>
+                        </tr>
+                        {% for weather, rule in item.rules.items() %}
+                        <tr>
+                            <td>{{ weather }}</td>
+                            <td>{{ rule.below.temp }}°F</td>
+                            <td>{{ rule.below.mood }}</td>
+                            <td>{{ rule.above.mood }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-message">
+                <p>No rule changes have been recorded yet. As more data is collected and analyzed, rule changes will appear here.</p>
+                <p>Try using the app more and providing feedback on the mood predictions to see how the rules evolve!</p>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

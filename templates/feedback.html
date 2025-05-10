@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Insights</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .nav-bar {
+            display: flex;
+            background-color: white;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .nav-tab {
+            padding: 15px 25px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+        .nav-tab:hover {
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-top: 40px;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .weather-info {
+            display: flex;
+            justify-content: space-around;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .info-label {
+            font-size: 14px;
+            color: #666;
+        }
+        .info-value {
+            font-size: 18px;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+        .mood-emoji {
+            font-size: 72px;
+            margin: 20px 0;
+        }
+        .quote {
+            font-style: italic;
+            color: #555;
+            margin: 25px 0;
+            padding: 0 20px;
+            font-size: 18px;
+        }
+        .recommendation {
+            background-color: #f0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        .recommendation-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #17a2b8;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #138496;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <a href="/" class="nav-tab">Home</a>
+        <a href="/data" class="nav-tab">Data Collected</a>
+        <a href="/history" class="nav-tab">Rules History</a>
+        <a href="/rules" class="nav-tab">Current Rules</a>
+    </div>
+
+    <div class="container">
+        <h1>Thanks for sharing your mood!</h1>
+
+        <div class="weather-info">
+            <div class="info-item">
+                <span class="info-label">Weather</span>
+                <span class="info-value">{{ condition.title() }}</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Temperature</span>
+                <span class="info-value">{{ temperature }}°F</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Your Mood</span>
+                <span class="info-value">{{ mood.title() }}</span>
+            </div>
+        </div>
+
+        <div class="mood-emoji">
+            {% if mood == 'gloomy' %}
+                ☁️
+            {% elif mood == 'calm' %}
+                😌
+            {% elif mood == 'cheerful' %}
+                😊
+            {% elif mood == 'extremely happy' %}
+                🤩
+            {% elif mood == 'glum' %}
+                😔
+            {% elif mood == 'sad' %}
+                😢
+            {% elif mood == 'lively' %}
+                ⚡
+            {% elif mood == 'happy' %}
+                😃
+            {% elif mood == 'content' %}
+                😌
+            {% elif mood == 'melancholy' %}
+                🥺
+            {% elif mood == 'neutral' %}
+                😐
+            {% else %}
+                🙂
+            {% endif %}
+        </div>
+
+        <div class="quote">
+            {% if mood == 'gloomy' %}
+                "Even the darkest clouds eventually run out of rain."
+            {% elif mood == 'calm' %}
+                "Peace is not the absence of chaos, but the ability to be still within it."
+            {% elif mood == 'cheerful' %}
+                "A cheerful heart is a magnet for miracles."
+            {% elif mood == 'extremely happy' %}
+                "When happiness wraps you up, dance with it like no one's watching."
+            {% elif mood == 'glum' %}
+                "It's okay to sit with the rain — just don't forget the sun is waiting."
+            {% elif mood == 'sad' %}
+                "Tears are words the heart can't say; let them flow, then heal."
+            {% elif mood == 'lively' %}
+                "Energy is contagious — be the spark that lights up the room!"
+            {% elif mood == 'happy' %}
+                "Happiness is not a destination, it's a way of life."
+            {% elif mood == 'content' %}
+                "Gratitude turns what we have into enough."
+            {% elif mood == 'melancholy' %}
+                "There's beauty even in the quiet sadness — it reminds us how deeply we can feel."
+            {% elif mood == 'neutral' %}
+                "Sometimes, simply being is more than enough."
+            {% else %}
+                "Every mood has its purpose and wisdom to share."
+            {% endif %}
+        </div>
+        
+        <div class="recommendation">
+            <div class="recommendation-title">Today's Recommendation:</div>
+            {% if mood == 'gloomy' %}
+                Take a moment to journal your feelings and remind yourself that better days are ahead.
+            {% elif mood == 'calm' %}
+                Stay in the moment — maybe enjoy a quiet walk or listen to soft music to keep the calmness flowing.
+            {% elif mood == 'cheerful' %}
+                Spread your joy by checking in on a friend or doing something kind for someone today.
+            {% elif mood == 'extremely happy' %}
+                Keep the positive vibes going — celebrate the moment, even if it's with something small like a favorite treat.
+            {% elif mood == 'glum' %}
+                Try doing something you love, even if you don't feel like it — a favorite hobby can lift you little by little.
+            {% elif mood == 'sad' %}
+                Allow yourself to feel it fully, then gently do something nurturing like calling a loved one or resting.
+            {% elif mood == 'lively' %}
+                Channel that energy into something creative or social, like dancing, crafting, or organizing a spontaneous hangout.
+            {% elif mood == 'happy' %}
+                Spread your happiness - smile at strangers, compliment someone, or do a random act of kindness.
+            {% elif mood == 'content' %}
+                Savor this feeling — maybe reflect on a few things you're thankful for to deepen your sense of peace.
+            {% elif mood == 'melancholy' %}
+                Take it slow — maybe write poetry, sketch, or just sit somewhere comforting and cozy.
+            {% elif mood == 'neutral' %}
+                Stay grounded — maybe do a simple mindfulness exercise like breathing deeply for a few minutes.
+            {% else %}
+                Take a moment to check in with yourself and consider what would feel nurturing right now.
+            {% endif %}
+        </div>

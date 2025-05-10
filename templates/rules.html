@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Current Mood Rules</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .nav-bar {
+            display: flex;
+            background-color: white;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        .nav-tab {
+            padding: 15px 25px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+        }
+        .nav-tab:hover {
+            background-color: #f9f9f9;
+        }
+        .stats {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f0f7ff;
+            border-radius: 8px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #0077cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        .button:hover {
+            background-color: #005fa3;
+        }
+        .reset-button {
+            background-color: #dc3545;
+        }
+        .reset-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <a href="/" class="nav-tab">Home</a>
+        <a href="/data" class="nav-tab">Data Collected</a>
+        <a href="/history" class="nav-tab">Rules History</a>
+        <a href="/rules" class="nav-tab">Current Rules</a>
+    </div>
+
+    <div class="container">
+        <h1>Current Mood Prediction Rules</h1>
+
+        <p>The app uses these rules to predict your mood based on weather and temperature:</p>
+
+        <table>
+            <tr>
+                <th>Weather</th>
+                <th>Temperature Threshold</th>
+                <th>Below Threshold Mood</th>
+                <th>Above Threshold Mood</th>
+            </tr>
+            {% for weather, rule in rules.items() %}
+            <tr>
+                <td>{{ weather }}</td>
+                <td>{{ rule.below.temp }}°F</td>
+                <td>{{ rule.below.mood }}</td>
+                <td>{{ rule.above.mood }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <div class="stats">
+            <h2>Data Statistics</h2>
+            <p>Total data points collected: <strong>{{ total_entries }}</strong></p>
+            <p>Data points per weather type:</p>
+            <ul>
+                {% for weather, count in weather_counts.items() %}
+                <li><strong>{{ weather }}:</strong> {{ count }} data points</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <a href="/analyze" class="button">Analyze Data Now</a>
+        <a href="/reset" class="button reset-button" onclick="return confirm('Are you sure you want to reset all data? This cannot be undone.')">Reset All Data</a>
+    </div>
+</body>
+</html>
